@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Name</title>
+  <title>David Gabrick</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -97,9 +97,7 @@
 <div class="container" id="about">
   <h2>About</h2>
   <p>
-    I am a mechanical engineering student focused on product design, CAD modeling,
-    and engineering problem-solving. I enjoy building real-world projects and
-    improving designs through iteration.
+  I’m a Mechanical Engineering student at the University of Texas at Arlington with a focus on building practical, real-world systems. I have experience designing and fabricating mechanical components and currently contribute to a Formula SAE team developing high-performance vehicle systems.
   </p>
 </div>
 
@@ -107,18 +105,15 @@
   <h2>Projects</h2>
 
   <div class="project">
-    <h3>SolidWorks Gearbox Design</h3>
+    <h3>Autonomous Turret Tracker</h3>
     <p>
-      Designed and assembled a functional gearbox using SolidWorks, including
-      detailed part modeling and motion considerations.
+      A 2-axis pan-tilt vision tracking system driven by an MG996R servo on the pan axis and an SG90 on the tilt axis, mounted on a custom-designed 3D-printed PLA bracket modeled in Fusion 360. A computer vision pipeline written in Python using OpenCV performs real-time detection of human faces and moving objects such as drones from a USB webcam feed, computing centroid error relative to the frame center. A proportional controller maps the pixel error on both axes to servo angle corrections, which are transmitted wirelessly to the ESP32-WROOM-32 (dual-core 240 MHz) over Wi-Fi. Firmware written in C++ using the Arduino framework and ESP32Servo library receives the joint angle targets and drives both axes via PWM. Servo power lines are conditioned with 100 µF decoupling capacitors and Schottky flyback diodes to suppress transient noise from the ESP32 rail.
     </p>
   </div>
 
   <div class="project">
-    <h3>Robotic Arm</h3>
-    <p>
-      Built and programmed a robotic arm capable of basic pick-and-place tasks.
-    </p>
+      <h3>Cycloidal Drive Gearbox</h3>
+    <p>WIP</p>
   </div>
 
 </div>
