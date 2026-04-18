@@ -1,1 +1,0 @@
-# davidgabrick.github.io
