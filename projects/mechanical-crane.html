@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Level-Luffing Mechanical Crane — David Gabrick</title>
+  <title>Level-Luffing Mechanical Crane | David Gabrick</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -20,27 +20,28 @@
 
   <span class="badge badge--done">Spring 2026</span>
   <h1>Level-Luffing Mechanical Crane</h1>
-  <p class="tagline">Academic design project &mdash; a level-luffing crane mechanism.</p>
+  <p class="tagline">&ldquo;The White Crane,&rdquo; a team-led level-luffing crane that keeps its claw level through the full reach.</p>
 
-  <!-- HERO IMAGE — replace src once you add a photo/render to assets/images/mechanical-crane/ -->
-  <div class="thumb-placeholder" style="aspect-ratio:21/9; border-radius:var(--radius);">
-    Add hero image to assets/images/mechanical-crane/ &mdash; then swap this block for:
-    &lt;img class="hero-image" src="../assets/images/mechanical-crane/hero.jpg" alt="…"&gt;
-  </div>
+  <img class="hero-image" src="../assets/images/mechanical-crane/crane-hero.jpg"
+       alt="SolidWorks render of the White Crane level-luffing crane prototype">
 </div>
 
 <!-- ===================== OVERVIEW ===================== -->
 <div class="container">
   <h2>Overview</h2>
-  <div class="placeholder">
-    <strong>Placeholder — add the overview write-up.</strong> A short paragraph on what the
-    project was, the context (which course/term), and the goal of the mechanism.
-  </div>
+  <p>
+    &ldquo;The White Crane&rdquo; was our final design project for MAE 1351, Introduction to
+    Engineering Design (Dr. Raul Fernandez). Working in a four-person team, we designed,
+    simulated, and fabricated a <strong>level-luffing crane</strong>: a crane whose linkage keeps
+    its end effector level as the jib reaches in and out, instead of letting it rise and dip
+    through the arc. We designed it in SolidWorks, ran an FEA study, and built a working
+    3D-printed prototype driven by a linear actuator.
+  </p>
 
   <dl class="facts">
     <div>
       <dt>Type</dt>
-      <dd>Academic project</dd>
+      <dd>Academic team project (MAE 1351)</dd>
     </div>
     <div>
       <dt>Timeframe</dt>
@@ -48,112 +49,203 @@
     </div>
     <div>
       <dt>Team size</dt>
-      <dd>[to be added]</dd>
+      <dd>4 (Team 2, &ldquo;The White Crane&rdquo;)</dd>
     </div>
     <div>
       <dt>My role</dt>
-      <dd>[to be added — your specific contribution]</dd>
+      <dd>Project Lead, most of the design and build</dd>
     </div>
   </dl>
+
+  <h3>My contribution</h3>
+  <p>
+    I led the four-person team and did most of the design and build work. The level-luffing
+    concept came from research I did during brainstorming, which we then adapted for our needs. I
+    modeled every part in SolidWorks (the base frame, linkage arms, claw, actuator mounts, and the
+    brackets and spacers), which kept the assembly consistent and let me catch fitment problems
+    before anything was printed. I also produced the working drawings, including the assembly
+    drawing and the detail drawings with tolerances and GD&amp;T. I printed every part on a Bambu
+    Lab printer (reprinting the ones that came out weak or didn&rsquo;t fit), assembled the full
+    mechanism (linkages, actuator, rack and pinion, and claw), soldered the wiring for the servos,
+    actuator, battery, and controls, and helped write the control code that sequenced the actuator
+    and claw.
+  </p>
 </div>
 
 <!-- ===================== CHALLENGE ===================== -->
 <div class="container">
   <h2>The Challenge</h2>
-  <div class="placeholder">
-    <strong>Placeholder — add the challenge / objective.</strong> What problem the design had to
-    solve and any constraints or requirements (load, geometry, motion path, etc.).
-  </div>
+  <p>
+    The assignment was to build a crane that could pick up a cup and move it without knocking it
+    over. That meant keeping the claw level while the arm reaches in and out, staying stable under
+    load, and doing it within a tight cost budget. A specific problem surfaced in our design: to
+    bring the claw all the way down to the ground we had to extend the front arm so far that the
+    claw clipped into the ground. The mechanism had to reach low <em>and</em> keep the claw level,
+    without relying on a heavy counterweight for balance.
+  </p>
 </div>
 
 <!-- ===================== APPROACH ===================== -->
 <div class="container">
   <h2>Approach &amp; Process</h2>
-  <div class="placeholder">
-    <strong>Placeholder — add the engineering work.</strong> Walk through your design process.
-    Drop images (CAD renders, sketches, analysis, prototypes) into
-    <code>assets/images/mechanical-crane/</code> and I'll place them inline next to the relevant
-    text, alternating left/right like the example below.
-  </div>
 
-  <!-- Example inline text+image row for when content is added:
+  <!-- Dangling front arm -->
   <div class="row">
     <div class="row-text">
-      <h3>Linkage design</h3>
-      <p>…</p>
+      <h3>Keeping the claw level</h3>
+      <p>
+        Our main modification to the standard level-luffing design was letting the front
+        (reaching) arm dangle, or pivot freely, as it extends forward. Extending the arm to lower
+        the claw had been making the claw clip into the ground; allowing the arm to pivot keeps
+        the claw level through the reach instead.
+      </p>
     </div>
     <div class="row-media">
-      <img src="../assets/images/mechanical-crane/linkage.jpg" alt="Linkage CAD render">
+      <img src="../assets/images/mechanical-crane/crane-render-arm.jpg"
+           alt="SolidWorks render of the crane's reaching arm and leveling claw linkage">
     </div>
   </div>
-  -->
+
+  <!-- Stability without a counterweight -->
+  <div class="row">
+    <div class="row-media">
+      <img src="../assets/images/mechanical-crane/crane-cad-assembly.jpg"
+           alt="SolidWorks assembly view of the crane showing the open base frame and stabilizing legs">
+    </div>
+    <div class="row-text">
+      <h3>Stability without a counterweight</h3>
+      <p>
+        Rather than balance the crane with a counterweight, we removed it entirely and added
+        legs to the base for stability. We also reworked the base into a more open, more
+        cost-effective frame.
+      </p>
+    </div>
+  </div>
+
+  <!-- Fabrication, actuation & controls -->
+  <div class="row">
+    <div class="row-text">
+      <h3>Fabrication, actuation &amp; controls</h3>
+      <p>
+        Every part was 3D-printed on a Bambu Lab printer, with weak or ill-fitting parts
+        reprinted, then assembled into the working mechanism: linkages, the linear actuator, a
+        rack and pinion, and the claw. The claw&rsquo;s grabbers are fastened with four 6&nbsp;mm
+        M4 threaded inserts (a commercial off-the-shelf kit) for durable machine-screw threads.
+        The servos, actuator, battery, and controls were wired and soldered in, and control code
+        sequenced the actuator and claw so they moved in the right order.
+      </p>
+    </div>
+    <div class="row-media">
+      <img src="../assets/images/mechanical-crane/crane-printed-part.jpg"
+           alt="A 3D-printed crane part on the Bambu Lab printer bed">
+    </div>
+  </div>
+
+  <!-- FEA -->
+  <div class="row">
+    <div class="row-media">
+      <img src="../assets/images/mechanical-crane/crane-fea.jpg"
+           alt="SolidWorks FEA Von Mises stress plot of the actuated link under a 1000 N load">
+    </div>
+    <div class="row-text">
+      <h3>Simulation &amp; FEA</h3>
+      <p>
+        We analyzed the link the actuator pushes on using SolidWorks Simulation. The load was
+        applied at the 11th hole from the bottom-right, where the linear actuator acts on the
+        link, with fixtures at the top-left (the connecting link) and the bottom-right (fixed to
+        the base&rsquo;s rod). At the actuator&rsquo;s maximum output of 1000&nbsp;N, the Von Mises
+        results showed most of the part in low stress (blue/green), with a localized high-stress
+        region at the fixed bottom-right area. That spot is the most likely to deform and the
+        clearest candidate for reinforcement in a future revision.
+      </p>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== TOOLS & SKILLS ===================== -->
 <div class="container">
   <h2>Tools &amp; Skills</h2>
-  <div class="placeholder">
-    <strong>Placeholder — list the tools and skills used</strong> (e.g. SolidWorks, machining,
-    FEA/analysis methods, hand calculations). Send them over and I'll render them as chips.
-  </div>
-  <!-- Example for when tools are added:
   <ul class="chips">
-    <li>SolidWorks</li>
-    <li>Machining</li>
+    <li>SolidWorks (CAD)</li>
+    <li>SolidWorks Visualize</li>
+    <li>SolidWorks Simulation (FEA)</li>
+    <li>Engineering drawings &amp; GD&amp;T</li>
+    <li>Mechanism / linkage design</li>
+    <li>3D printing (Bambu Lab)</li>
+    <li>Linear actuator &amp; rack-and-pinion</li>
+    <li>Wiring &amp; soldering</li>
+    <li>Control programming</li>
+    <li>Threaded-insert assembly</li>
+    <li>Project leadership</li>
   </ul>
-  -->
 </div>
 
 <!-- ===================== RESULTS ===================== -->
 <div class="container">
   <h2>Results &amp; Outcomes</h2>
+  <p>
+    The prototype worked exactly as intended: it picked up a cup and set it back down with the
+    claw level the whole way. The dangling-arm modification kept the claw level through the reach,
+    and the legged base provided stability in place of a counterweight. The SolidWorks FEA
+    confirmed the actuated link carries the actuator&rsquo;s 1000&nbsp;N maximum load with stress
+    concentrated at the fixed end, the spot we&rsquo;d reinforce in a future revision.
+  </p>
   <div class="placeholder">
-    <strong>Placeholder — add results.</strong> What the finished design achieved, test data,
-    grades/feedback if relevant, and a photo or render of the final result.
+    <strong>Optional: add a demo.</strong> If you have a video or photos of the crane lifting the
+    cup, send them over and I'll add them to the gallery below.
   </div>
 </div>
 
 <!-- ===================== GALLERY ===================== -->
 <div class="container">
   <h2>Gallery</h2>
-  <div class="placeholder">
-    <strong>Placeholder gallery.</strong> Drop images into
-    <code>assets/images/mechanical-crane/</code> and I'll wire them in here as captioned figures.
-  </div>
-  <!-- Example figure structure for when images are added:
   <div class="gallery">
     <figure>
-      <img src="../assets/images/mechanical-crane/photo1.jpg" alt="Description">
-      <figcaption>Caption</figcaption>
+      <img src="../assets/images/mechanical-crane/crane-render.jpg"
+           alt="SolidWorks Visualize render of The White Crane holding a cup">
+      <figcaption>SolidWorks Visualize render</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/mechanical-crane/crane-prototype.jpg"
+           alt="The completed 3D-printed White Crane prototype">
+      <figcaption>The completed 3D-printed prototype</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/mechanical-crane/crane-operation.jpg"
+           alt="The crane lifting a cup with the claw kept level">
+      <figcaption>Lifting a cup with the claw kept level</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/mechanical-crane/crane-operation-2.jpg"
+           alt="The crane mid-lift, viewed from a second angle">
+      <figcaption>Mid-lift, second angle</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/mechanical-crane/crane-assembly-drawing.jpg"
+           alt="Assembly drawing of the crane mechanism">
+      <figcaption>Assembly drawing</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/mechanical-crane/crane-detail-drawing.jpg"
+           alt="Detail part drawing with tolerances and GD&amp;T">
+      <figcaption>Detail part drawing (tolerances &amp; GD&amp;T)</figcaption>
     </figure>
   </div>
-  -->
 </div>
 
 <!-- ===================== DOCUMENTATION ===================== -->
 <div class="container">
   <h2>Documentation</h2>
-  <div class="placeholder">
-    <strong>Placeholder — add your documentation files.</strong> Drop the report, drawings, and
-    BOM into <code>assets/docs/mechanical-crane/</code> and I'll link them as a download list
-    like the one below.
-  </div>
-  <!-- Example list structure for when docs are added:
   <ul class="doc-list">
     <li>
-      <a href="../assets/docs/mechanical-crane/report.pdf">Project report (PDF)</a>
-      <span class="doc-meta">PDF</span>
-    </li>
-    <li>
-      <a href="../assets/docs/mechanical-crane/drawings.pdf">Engineering drawings (PDF)</a>
-      <span class="doc-meta">PDF</span>
-    </li>
-    <li>
-      <a href="../assets/docs/mechanical-crane/bom.pdf">Bill of materials (PDF)</a>
-      <span class="doc-meta">PDF</span>
+      <a href="../assets/docs/mechanical-crane/white-crane-design-report.pdf">White Crane Design Report (PDF)</a>
+      <span class="doc-meta">PDF, 10 pages</span>
     </li>
   </ul>
-  -->
+  <p class="doc-note">
+    Covers the overview, design rationale, the FEA study, and the engineering drawing package.
+    The roster page listing teammates' student ID numbers has been removed for privacy.
+  </p>
 </div>
 
 <div class="container page-footer">

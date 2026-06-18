@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Autonomous Turret Tracker — David Gabrick</title>
+  <title>Autonomous Turret Tracker | David Gabrick</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -18,14 +18,14 @@
 <div class="container project-header">
   <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
 
-  <span class="badge badge--ongoing">Ongoing &middot; Summer 2026</span>
+  <span class="badge badge--ongoing">Ongoing, Summer 2026</span>
   <h1>Autonomous Turret Tracker</h1>
   <p class="tagline">A 2-axis pan-tilt vision system that detects and tracks moving targets in real time.</p>
 
-  <!-- HERO IMAGE — replace src once you add a photo/render to assets/images/turret-tracker/ -->
+  <!-- HERO IMAGE: replace src once you add a photo/render to assets/images/turret-tracker/ -->
   <div class="thumb-placeholder" style="aspect-ratio:21/9; border-radius:var(--radius);">
-    Add hero image to assets/images/turret-tracker/ &mdash; then swap this block for:
-    &lt;img class="hero-image" src="../assets/images/turret-tracker/hero.jpg" alt="…"&gt;
+    Add hero image to assets/images/turret-tracker/, then swap this block for:
+    &lt;img class="hero-image" src="../assets/images/turret-tracker/hero.jpg" alt="..."&gt;
   </div>
 </div>
 
@@ -34,9 +34,9 @@
   <h2>Overview</h2>
   <p>
     The Autonomous Turret Tracker is a 2-axis pan-tilt platform that uses computer vision to
-    detect and follow a target — such as a human face or a moving object like a drone — and
-    physically aims at it in real time. It pairs a 3D-printed mechanical assembly with an
-    on-board microcontroller and a vision pipeline running on a host computer.
+    detect and follow a target, such as a human face or a moving object like a drone, and
+    physically aim at it in real time. It uses a 3D-printed mechanical assembly, an on-board
+    microcontroller, and a vision pipeline running on a host computer.
   </p>
 
   <dl class="facts">
@@ -54,12 +54,12 @@
     </div>
     <div>
       <dt>My role</dt>
-      <dd>End-to-end: mechanical design, electronics, firmware &amp; vision software</dd>
+      <dd>Mechanical design, electronics, firmware, and vision software</dd>
     </div>
   </dl>
 
   <div class="placeholder">
-    <strong>Placeholder — confirm/adjust the overview facts above.</strong> Add anything you'd
+    <strong>Placeholder: confirm or adjust the overview facts above.</strong> Add anything you'd
     like to highlight here (motivation, what sparked the project, intended use case).
   </div>
 </div>
@@ -70,9 +70,9 @@
   <p>
     Build a low-cost system that can locate a target within a camera frame and keep it centered
     by driving two servo axes, with control commands sent wirelessly to the turret rather than
-    over a wired tether. The work spans four areas that have to integrate cleanly: the mechanical
+    over a wired tether. The project has four parts that need to work together: the mechanical
     pan-tilt assembly, the vision pipeline, the control law that turns image error into motion,
-    and the firmware and power electronics that drive the servos reliably.
+    and the firmware and power electronics that drive the servos.
   </p>
 </div>
 
@@ -107,7 +107,7 @@
       <p>
         A Python pipeline built on OpenCV processes a USB webcam feed and performs real-time
         detection of human faces and moving objects such as drones. For each detection it computes
-        the centroid error — how far the target is from the center of the frame — on both axes.
+        the centroid error (how far the target is from the center of the frame) on both axes.
       </p>
     </div>
   </div>
@@ -170,12 +170,12 @@
   <h2>Results &amp; Status</h2>
   <p>
     This is an active, in-progress project (Summer 2026). The mechanical assembly, vision
-    pipeline, P-controller, and wireless ESP32 firmware described above are implemented and
-    integrated end-to-end.
+    pipeline, P-controller, and wireless ESP32 firmware described above are built and working
+    together.
   </p>
   <div class="placeholder">
-    <strong>Placeholder — add current outcomes as the build matures.</strong> For example:
-    tracking accuracy or latency you've measured, a demo video/GIF, the largest tracking error
+    <strong>Placeholder: add current outcomes as the build matures.</strong> For example:
+    tracking accuracy or latency you've measured, a demo video or GIF, the largest tracking error
     the loop can recover from, and any next steps still planned. Avoid stating finished results
     until you've confirmed them.
   </div>
@@ -202,7 +202,7 @@
 <div class="container">
   <h2>Documentation</h2>
   <div class="placeholder">
-    <strong>Placeholder — add your documentation files.</strong> Drop PDFs, drawings, BOMs, or
+    <strong>Placeholder: add your documentation files.</strong> Drop PDFs, drawings, BOMs, or
     code exports into <code>assets/docs/turret-tracker/</code> and I'll link them as a download
     list like the one below.
   </div>

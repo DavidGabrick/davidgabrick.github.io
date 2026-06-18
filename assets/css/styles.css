@@ -1,5 +1,5 @@
 /* =========================================================
-   David Gabrick — Engineering Portfolio
+   David Gabrick: Engineering Portfolio
    Single shared stylesheet for every page.
    Aesthetic preserved from the original index.html:
    white background, near-black text, system font,
@@ -111,7 +111,7 @@ h2 {
 .contact { margin-top: 40px; }
 
 /* =========================================================
-   Landing page — project card grid
+   Landing page: project card grid
    ========================================================= */
 .project-grid {
   display: grid;
@@ -355,6 +355,8 @@ h2 {
 .doc-list a:hover { text-decoration: underline; }
 
 .doc-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+.doc-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; }
 
 /* Placeholder callout for missing content */
 .placeholder {
