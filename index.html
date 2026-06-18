@@ -4,82 +4,7 @@
   <meta charset="UTF-8">
   <title>David Gabrick</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #ffffff;
-      color: #111;
-      line-height: 1.6;
-    }
-
-    nav {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      background: white;
-      border-bottom: 1px solid #eee;
-      padding: 15px 0;
-      text-align: center;
-    }
-
-    nav a {
-      margin: 0 20px;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-
-    .container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px 20px;
-}
-
-   .hero {
-  text-align: center;
-  padding-top: 80px;
-  padding-bottom: 60px;
-}
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-top: 60px;
-      font-size: 1.8rem;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 5px;
-    }
-
-    p {
-      color: #444;
-    }
-
-    .project {
-      border: 1px solid #eee;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
-      transition: 0.2s;
-    }
-
-    .project:hover {
-      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-      transform: translateY(-3px);
-    }
-
-    .project h3 {
-      margin: 0 0 10px 0;
-    }
-
-    .contact {
-      margin-top: 40px;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
@@ -97,44 +22,63 @@
 
 <div class="container" id="about">
   <h2>About Me</h2>
-  <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
-    <p style="flex: 1; min-width: 250px; margin: 0;">
+  <div class="about-grid">
+    <p class="about-text">
       I'm a Mechanical Engineering student at the University of Texas at Arlington with a focus on building practical, real-world systems. I have experience designing and fabricating mechanical components and currently contribute to the UTA Racing Formula SAE team developing high-performance vehicle systems.
     </p>
     <img
-      src="DSC_1555.jpg"
-      alt="David Gabrick"
-      style="width: 350px; height: 350px; object-fit: cover; border-radius: 5%; flex-shrink: 0;"
+      class="about-photo"
+      src="assets/images/profile/DSC_1555.jpg"
+      alt="Portrait of David Gabrick"
     />
   </div>
 </div>
-  
+
 <div class="container" id="projects">
   <h2>Projects</h2>
 
- <div class="project">
-      <h3>Level-Luffing Mechanical Crane (WIP) - Academic Project</h3>
-    <p>WIP Spring 2026</p>
-  </div>
-  
-  <div class="project">
-    <h3>Autonomous Turret Tracker (WIP) - Personal Project</h3>
-    <p>
-      A 2-axis pan-tilt vision tracking system driven by an MG996R servo on the pan axis and an SG90 on the tilt axis, mounted on a custom-designed 3D-printed PLA bracket modeled in Fusion 360. A computer vision pipeline written in Python using OpenCV performs real-time detection of human faces and moving objects such as drones from a USB webcam feed, computing centroid error relative to the frame center. A P-controller maps the pixel error on both axes to servo angle corrections, which are transmitted wirelessly to the ESP32 over Wi-Fi. Firmware written in C++ using the Arduino framework and ESP32Servo library receives the joint angle targets and drives both axes via PWM. Servo power lines are conditioned with 100 µF decoupling capacitors and flyback diodes to suppress noise from the ESP32 rail.
-    </p>
-  </div>
+  <div class="project-grid">
 
-  <div class="project">
-      <h3>Cycloidal Drive Gearbox (WIP) - Personal Project</h3>
-    <p>Project for Winter 2026 or Spring 2027</p>
-  </div>
+    <!-- Autonomous Turret Tracker — clickable, ongoing -->
+    <a class="project-card" href="projects/turret-tracker.html">
+      <div class="thumb-placeholder">Add hero image to<br>assets/images/turret-tracker/</div>
+      <div class="card-body">
+        <span class="badge badge--ongoing">Ongoing &middot; Summer 2026</span>
+        <h3>Autonomous Turret Tracker</h3>
+        <p class="card-desc">A 2-axis pan-tilt system that visually tracks faces and moving objects in real time.</p>
+        <p class="card-tools">Fusion 360 &middot; Python / OpenCV &middot; ESP32 &middot; C++</p>
+      </div>
+    </a>
 
+    <!-- Level-Luffing Mechanical Crane — clickable -->
+    <a class="project-card" href="projects/mechanical-crane.html">
+      <div class="thumb-placeholder">Add hero image to<br>assets/images/mechanical-crane/</div>
+      <div class="card-body">
+        <span class="badge badge--done">Spring 2026</span>
+        <h3>Level-Luffing Mechanical Crane</h3>
+        <p class="card-desc">Academic design project — a level-luffing crane mechanism. Full write-up and documentation.</p>
+        <p class="card-tools">Tools: [to be added]</p>
+      </div>
+    </a>
+
+    <!-- Cycloidal Drive Gearbox — non-clickable, coming soon -->
+    <div class="project-card project-card--soon" aria-disabled="true">
+      <div class="thumb-placeholder">Coming Fall 2026</div>
+      <div class="card-body">
+        <span class="badge badge--soon">Coming Fall 2026</span>
+        <h3>Cycloidal Drive Gearbox</h3>
+        <p class="card-desc">A high-reduction cycloidal gearbox — personal project, not yet started.</p>
+        <p class="card-tools">Tools: [to be added]</p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="container" id="contact">
+<div class="container contact" id="contact">
   <h2>Contact</h2>
   <p>Email: davidgabrick.dg@gmail.com</p>
-  <p>LinkedIn: https://www.linkedin.com/in/david-gabrick/</p>
+  <p>LinkedIn: <a href="https://www.linkedin.com/in/david-gabrick/">linkedin.com/in/david-gabrick</a></p>
 </div>
 
 </body>

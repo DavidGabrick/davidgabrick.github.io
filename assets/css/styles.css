@@ -1,0 +1,385 @@
+/* =========================================================
+   David Gabrick — Engineering Portfolio
+   Single shared stylesheet for every page.
+   Aesthetic preserved from the original index.html:
+   white background, near-black text, system font,
+   thin grey borders, subtle hover lift.
+   ========================================================= */
+
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --text-soft: #444444;
+  --text-muted: #777777;
+  --line: #eeeeee;
+  --line-strong: #dddddd;
+  --accent: #1a4fb4;          /* link / interactive accent */
+  --chip-bg: #f4f4f5;
+  --chip-text: #333333;
+  --radius: 10px;
+  --maxw: 900px;
+  --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+p { color: var(--text-soft); }
+
+a { color: var(--accent); }
+
+img { max-width: 100%; }
+
+/* ---------- top navigation ---------- */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: white;
+  border-bottom: 1px solid var(--line);
+  padding: 15px 0;
+  text-align: center;
+  z-index: 100;
+}
+
+nav a {
+  margin: 0 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover,
+nav a:focus { color: var(--accent); }
+
+/* ---------- layout ---------- */
+.container {
+  max-width: var(--maxw);
+  margin: auto;
+  padding: 20px;
+}
+
+.hero {
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 60px;
+  font-size: 1.8rem;
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 5px;
+}
+
+/* ---------- About section (lifted from former inline styles) ---------- */
+.about-grid {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 250px;
+  margin: 0;
+}
+
+.about-photo {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 5%;
+  flex-shrink: 0;
+}
+
+.contact { margin-top: 40px; }
+
+/* =========================================================
+   Landing page — project card grid
+   ========================================================= */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* A card is a link (or a div for "coming soon"). */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.project-card .thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--chip-bg);
+  display: block;
+}
+
+/* Placeholder thumbnail (no image yet) */
+.thumb-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: repeating-linear-gradient(
+    45deg, #f7f7f8, #f7f7f8 12px, #f0f0f1 12px, #f0f0f1 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 10px;
+}
+
+.card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.card-body h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.card-tools {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Status badge / pill */
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+}
+
+.badge--ongoing { background: #fff4e0; color: #8a5a00; }
+.badge--done    { background: #e6f4ea; color: #1f6b34; }
+.badge--soon    { background: #eef1f6; color: #4a5568; }
+
+/* Non-clickable "coming soon" card */
+.project-card--soon {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.project-card--soon:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+/* =========================================================
+   Project detail pages
+   ========================================================= */
+.back-link {
+  display: inline-block;
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.back-link:hover { text-decoration: underline; }
+
+.project-header { padding-top: 80px; }
+
+.tagline {
+  font-size: 1.2rem;
+  color: var(--text-soft);
+  margin-top: 0;
+}
+
+.hero-image {
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+  margin: 10px 0 20px;
+}
+
+/* Overview quick-facts strip */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-top: 16px;
+}
+
+.facts dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Approach: text + image side by side, alternating */
+.row {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.row > .row-text { flex: 1 1 280px; }
+.row > .row-media { flex: 1 1 280px; }
+
+.row img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  display: block;
+}
+
+/* Tools / skills chips */
+.chips {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips li {
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-size: 0.85rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* Image gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.gallery figure { margin: 0; }
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.gallery figcaption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Documentation list */
+.doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.doc-list li {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.doc-list a { font-weight: 500; text-decoration: none; }
+.doc-list a:hover { text-decoration: underline; }
+
+.doc-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+/* Placeholder callout for missing content */
+.placeholder {
+  border: 1px dashed var(--line-strong);
+  background: #fafafa;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.placeholder strong { color: var(--text-soft); }
+
+/* Page footer back-link area */
+.page-footer {
+  border-top: 1px solid var(--line);
+  margin-top: 60px;
+  padding: 30px 0 50px;
+  text-align: center;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 600px) {
+  h1 { font-size: 2.2rem; }
+  .about-photo { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+  nav a { margin: 0 12px; }
+}

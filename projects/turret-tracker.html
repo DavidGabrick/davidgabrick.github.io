@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autonomous Turret Tracker — David Gabrick</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="../index.html#projects">Projects</a>
+  <a href="../index.html#contact">Contact</a>
+</nav>
+
+<div class="container project-header">
+  <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
+
+  <span class="badge badge--ongoing">Ongoing &middot; Summer 2026</span>
+  <h1>Autonomous Turret Tracker</h1>
+  <p class="tagline">A 2-axis pan-tilt vision system that detects and tracks moving targets in real time.</p>
+
+  <!-- HERO IMAGE — replace src once you add a photo/render to assets/images/turret-tracker/ -->
+  <div class="thumb-placeholder" style="aspect-ratio:21/9; border-radius:var(--radius);">
+    Add hero image to assets/images/turret-tracker/ &mdash; then swap this block for:
+    &lt;img class="hero-image" src="../assets/images/turret-tracker/hero.jpg" alt="…"&gt;
+  </div>
+</div>
+
+<!-- ===================== OVERVIEW ===================== -->
+<div class="container">
+  <h2>Overview</h2>
+  <p>
+    The Autonomous Turret Tracker is a 2-axis pan-tilt platform that uses computer vision to
+    detect and follow a target — such as a human face or a moving object like a drone — and
+    physically aims at it in real time. It pairs a 3D-printed mechanical assembly with an
+    on-board microcontroller and a vision pipeline running on a host computer.
+  </p>
+
+  <dl class="facts">
+    <div>
+      <dt>Type</dt>
+      <dd>Personal project</dd>
+    </div>
+    <div>
+      <dt>Timeframe</dt>
+      <dd>Summer 2026 (in progress)</dd>
+    </div>
+    <div>
+      <dt>Team size</dt>
+      <dd>Solo</dd>
+    </div>
+    <div>
+      <dt>My role</dt>
+      <dd>End-to-end: mechanical design, electronics, firmware &amp; vision software</dd>
+    </div>
+  </dl>
+
+  <div class="placeholder">
+    <strong>Placeholder — confirm/adjust the overview facts above.</strong> Add anything you'd
+    like to highlight here (motivation, what sparked the project, intended use case).
+  </div>
+</div>
+
+<!-- ===================== OBJECTIVE ===================== -->
+<div class="container">
+  <h2>The Objective</h2>
+  <p>
+    Build a low-cost system that can locate a target within a camera frame and keep it centered
+    by driving two servo axes, with control commands sent wirelessly to the turret rather than
+    over a wired tether. The work spans four areas that have to integrate cleanly: the mechanical
+    pan-tilt assembly, the vision pipeline, the control law that turns image error into motion,
+    and the firmware and power electronics that drive the servos reliably.
+  </p>
+</div>
+
+<!-- ===================== APPROACH ===================== -->
+<div class="container">
+  <h2>Approach &amp; Process</h2>
+
+  <!-- Mechanical design -->
+  <div class="row">
+    <div class="row-text">
+      <h3>Mechanical design</h3>
+      <p>
+        The turret uses an MG996R servo on the pan axis and an SG90 servo on the tilt axis,
+        mounted on a custom bracket modeled in Fusion 360 and 3D-printed in PLA. The two-axis
+        arrangement gives the camera independent horizontal and vertical aim.
+      </p>
+    </div>
+    <div class="row-media">
+      <!-- Replace with a CAD render or photo of the bracket -->
+      <div class="thumb-placeholder">CAD render of the pan-tilt bracket<br>(assets/images/turret-tracker/)</div>
+    </div>
+  </div>
+
+  <!-- Vision pipeline -->
+  <div class="row">
+    <div class="row-media">
+      <!-- Replace with a screenshot of the detection/tracking view -->
+      <div class="thumb-placeholder">Detection / tracking screenshot<br>(assets/images/turret-tracker/)</div>
+    </div>
+    <div class="row-text">
+      <h3>Computer-vision pipeline</h3>
+      <p>
+        A Python pipeline built on OpenCV processes a USB webcam feed and performs real-time
+        detection of human faces and moving objects such as drones. For each detection it computes
+        the centroid error — how far the target is from the center of the frame — on both axes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Control law -->
+  <div class="row">
+    <div class="row-text">
+      <h3>Control law</h3>
+      <p>
+        A proportional (P) controller maps the pixel error on each axis to a servo-angle
+        correction. Those joint-angle targets are what get sent to the turret, closing the loop
+        so the camera continuously re-centers on the target.
+      </p>
+    </div>
+    <div class="row-media">
+      <!-- Replace with a control-loop diagram or test clip -->
+      <div class="thumb-placeholder">Control-loop diagram or test setup<br>(assets/images/turret-tracker/)</div>
+    </div>
+  </div>
+
+  <!-- Firmware & wireless -->
+  <div class="row">
+    <div class="row-media">
+      <!-- Replace with a wiring photo / ESP32 close-up -->
+      <div class="thumb-placeholder">ESP32 wiring / electronics photo<br>(assets/images/turret-tracker/)</div>
+    </div>
+    <div class="row-text">
+      <h3>Firmware &amp; wireless link</h3>
+      <p>
+        The joint-angle targets are transmitted wirelessly to an ESP32 over Wi-Fi. Firmware
+        written in C++ on the Arduino framework, using the ESP32Servo library, receives the
+        targets and drives both axes via PWM. To suppress noise coming back onto the ESP32 rail
+        from the servos, the power lines are conditioned with 100&nbsp;µF decoupling capacitors and
+        flyback diodes.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TOOLS & SKILLS ===================== -->
+<div class="container">
+  <h2>Tools &amp; Skills</h2>
+  <ul class="chips">
+    <li>Fusion 360</li>
+    <li>3D printing (PLA)</li>
+    <li>Python</li>
+    <li>OpenCV</li>
+    <li>Computer vision</li>
+    <li>P-control</li>
+    <li>ESP32</li>
+    <li>Arduino / C++</li>
+    <li>ESP32Servo</li>
+    <li>PWM motor drive</li>
+    <li>Power-supply conditioning</li>
+  </ul>
+</div>
+
+<!-- ===================== RESULTS ===================== -->
+<div class="container">
+  <h2>Results &amp; Status</h2>
+  <p>
+    This is an active, in-progress project (Summer 2026). The mechanical assembly, vision
+    pipeline, P-controller, and wireless ESP32 firmware described above are implemented and
+    integrated end-to-end.
+  </p>
+  <div class="placeholder">
+    <strong>Placeholder — add current outcomes as the build matures.</strong> For example:
+    tracking accuracy or latency you've measured, a demo video/GIF, the largest tracking error
+    the loop can recover from, and any next steps still planned. Avoid stating finished results
+    until you've confirmed them.
+  </div>
+</div>
+
+<!-- ===================== GALLERY ===================== -->
+<div class="container">
+  <h2>Gallery</h2>
+  <div class="placeholder">
+    <strong>Placeholder gallery.</strong> Drop images into
+    <code>assets/images/turret-tracker/</code> and I'll wire them in here as captioned figures.
+  </div>
+  <!-- Example figure structure for when images are added:
+  <div class="gallery">
+    <figure>
+      <img src="../assets/images/turret-tracker/bracket.jpg" alt="3D-printed pan-tilt bracket">
+      <figcaption>3D-printed PLA pan-tilt bracket</figcaption>
+    </figure>
+  </div>
+  -->
+</div>
+
+<!-- ===================== DOCUMENTATION ===================== -->
+<div class="container">
+  <h2>Documentation</h2>
+  <div class="placeholder">
+    <strong>Placeholder — add your documentation files.</strong> Drop PDFs, drawings, BOMs, or
+    code exports into <code>assets/docs/turret-tracker/</code> and I'll link them as a download
+    list like the one below.
+  </div>
+  <!-- Example list structure for when docs are added:
+  <ul class="doc-list">
+    <li>
+      <a href="../assets/docs/turret-tracker/design-report.pdf">Design report (PDF)</a>
+      <span class="doc-meta">PDF</span>
+    </li>
+  </ul>
+  -->
+</div>
+
+<div class="container page-footer">
+  <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
+</div>
+
+</body>
+</html>
