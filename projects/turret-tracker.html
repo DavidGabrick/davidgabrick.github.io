@@ -18,25 +18,26 @@
 <div class="container project-header">
   <a class="back-link" href="../index.html">&larr; Back to portfolio</a>
 
-  <span class="badge badge--ongoing">Ongoing, Summer 2026</span>
-  <h1>Autonomous Turret Tracker</h1>
-  <p class="tagline">A 2-axis pan-tilt vision system that detects and tracks moving targets in real time.</p>
+  <span class="badge badge--done">Summer 2026</span>
+  <h1>Autonomous Turret Tracker (ATT-01)</h1>
+  <p class="tagline">A vision-guided pan-tilt platform that detects a person, holds lock, and keeps the target centered in real time.</p>
 
-  <!-- HERO IMAGE: replace src once you add a photo/render to assets/images/turret-tracker/ -->
-  <div class="thumb-placeholder" style="aspect-ratio:21/9; border-radius:var(--radius);">
-    Add hero image to assets/images/turret-tracker/, then swap this block for:
-    &lt;img class="hero-image" src="../assets/images/turret-tracker/hero.jpg" alt="..."&gt;
-  </div>
+  <img class="hero-image"
+       src="../assets/images/turret-tracker/render.jpg"
+       alt="CAD render of the ATT-01 pan-tilt turret platform">
 </div>
 
 <!-- ===================== OVERVIEW ===================== -->
 <div class="container">
   <h2>Overview</h2>
   <p>
-    The Autonomous Turret Tracker is a 2-axis pan-tilt platform that uses computer vision to
-    detect and follow a target, such as a human face or a moving object like a drone, and
-    physically aim at it in real time. It uses a 3D-printed mechanical assembly, an on-board
-    microcontroller, and a vision pipeline running on a host computer.
+    ATT-01 is a self-contained pan-tilt platform that keeps a moving target centered in frame. A
+    laptop detects a person with a YOLOv8n neural network, holds a persistent lock on that
+    specific subject with ByteTrack, and estimates the target's motion with a Kalman filter. A
+    per-axis PID loop turns the tracking error into servo-angle commands, which stream over Wi-Fi
+    to an ESP32 that drives the pan and tilt servos. What separates it from a typical hobby
+    tracker is that it was tuned and characterized like a real control system, with every design
+    decision backed by logged data.
   </p>
 
   <dl class="facts">
@@ -46,7 +47,7 @@
     </div>
     <div>
       <dt>Timeframe</dt>
-      <dd>Summer 2026 (in progress)</dd>
+      <dd>Summer 2026</dd>
     </div>
     <div>
       <dt>Team size</dt>
@@ -54,25 +55,29 @@
     </div>
     <div>
       <dt>My role</dt>
-      <dd>Mechanical design, electronics, firmware, and vision software</dd>
+      <dd>Whole stack: mechanical, electronics, firmware, vision, and control</dd>
     </div>
   </dl>
 
-  <div class="placeholder">
-    <strong>Placeholder: confirm or adjust the overview facts above.</strong> Add anything you'd
-    like to highlight here (motivation, what sparked the project, intended use case).
-  </div>
+  <h3>Why I built it</h3>
+  <p>
+    I want to work on vision-guided control systems in defense and aerospace. The interest
+    started with photography and a curiosity about how stabilized camera gimbals hold a subject
+    locked in frame. ATT-01 is my hands-on route into that problem: the same detection,
+    estimation, and closed-loop control that keep a gimbal locked on its subject.
+  </p>
 </div>
 
 <!-- ===================== OBJECTIVE ===================== -->
 <div class="container">
   <h2>The Objective</h2>
   <p>
-    Build a low-cost system that can locate a target within a camera frame and keep it centered
-    by driving two servo axes, with control commands sent wirelessly to the turret rather than
-    over a wired tether. The project has four parts that need to work together: the mechanical
-    pan-tilt assembly, the vision pipeline, the control law that turns image error into motion,
-    and the firmware and power electronics that drive the servos.
+    The aim was a project that shows real systems-engineering work, not just a quick demo. I set
+    out to detect and follow a specific person in real time and hold lock even when they stop
+    moving; to close a genuine feedback loop from camera to servo and tune it with engineering
+    rigor instead of trial and error; to instrument the system so every decision could be backed
+    by measured data; and to integrate the full stack, from optics and vision through estimation,
+    control, firmware, and a 3D-printed mechanical assembly, into one working platform.
   </p>
 </div>
 
@@ -80,140 +85,294 @@
 <div class="container">
   <h2>Approach &amp; Process</h2>
 
+  <!-- System architecture -->
+  <div class="row">
+    <div class="row-text">
+      <h3>System architecture</h3>
+      <p>
+        The platform splits the work between a host laptop, which handles perception and control,
+        and an ESP32, which handles actuation. The two talk over Wi-Fi. Keeping the heavy vision
+        and control math on the laptop let me iterate quickly while the microcontroller stayed
+        responsible for one job: driving the servos.
+      </p>
+      <p class="pipeline">
+        USB webcam &rarr; YOLOv8n detection &rarr; ByteTrack ID &rarr; centroid &rarr; Kalman
+        filter &rarr; per-axis PID &rarr; UDP over Wi-Fi &rarr; ESP32 &rarr; 50 Hz PWM &rarr;
+        MG996R (pan) + SG90 (tilt)
+      </p>
+    </div>
+    <div class="row-media">
+      <img src="../assets/images/turret-tracker/render-section.jpg"
+           alt="Section render of the turret showing the internal pan and tilt drivetrain">
+    </div>
+  </div>
+
   <!-- Mechanical design -->
   <div class="row">
+    <div class="row-media">
+      <img src="../assets/images/turret-tracker/pedestal.jpg"
+           alt="3D-printed pedestal base of the turret with internal hardware">
+    </div>
     <div class="row-text">
       <h3>Mechanical design</h3>
       <p>
-        The turret uses an MG996R servo on the pan axis and an SG90 servo on the tilt axis,
-        mounted on a custom bracket modeled in Fusion 360 and 3D-printed in PLA. The two-axis
-        arrangement gives the camera independent horizontal and vertical aim.
-      </p>
-    </div>
-    <div class="row-media">
-      <!-- Replace with a CAD render or photo of the bracket -->
-      <div class="thumb-placeholder">CAD render of the pan-tilt bracket<br>(assets/images/turret-tracker/)</div>
-    </div>
-  </div>
-
-  <!-- Vision pipeline -->
-  <div class="row">
-    <div class="row-media">
-      <!-- Replace with a screenshot of the detection/tracking view -->
-      <div class="thumb-placeholder">Detection / tracking screenshot<br>(assets/images/turret-tracker/)</div>
-    </div>
-    <div class="row-text">
-      <h3>Computer-vision pipeline</h3>
-      <p>
-        A Python pipeline built on OpenCV processes a USB webcam feed and performs real-time
-        detection of human faces and moving objects such as drones. For each detection it computes
-        the centroid error (how far the target is from the center of the frame) on both axes.
+        The pan-tilt assembly is a custom 3D-printed bracket. The pan axis uses an MG996R servo to
+        swing the whole camera mass; the tilt axis uses a lighter SG90. Because the two axes are
+        physically different plants with different inertia, I treated and tuned them separately
+        rather than forcing one set of gains on both. The full paid bill of materials came to
+        about $45.
       </p>
     </div>
   </div>
 
-  <!-- Control law -->
+  <!-- Detection and locking -->
   <div class="row">
     <div class="row-text">
-      <h3>Control law</h3>
+      <h3>Detection and locking</h3>
       <p>
-        A proportional (P) controller maps the pixel error on each axis to a servo-angle
-        correction. Those joint-angle targets are what get sent to the turret, closing the loop
-        so the camera continuously re-centers on the target.
+        Instead of reacting to motion, the platform detects a designated target. YOLOv8n
+        classifies a person in each frame, and ByteTrack assigns a persistent ID so the system
+        keeps following the same subject through clutter, a second mover, and brief occlusion, and
+        does not lose them when they stand still. After a sustained loss, it reacquires on its own.
       </p>
     </div>
     <div class="row-media">
-      <!-- Replace with a control-loop diagram or test clip -->
-      <div class="thumb-placeholder">Control-loop diagram or test setup<br>(assets/images/turret-tracker/)</div>
+      <img src="../assets/images/turret-tracker/camera-module.jpg"
+           alt="Close-up of the camera module mounted on the turret">
     </div>
   </div>
 
-  <!-- Firmware & wireless -->
+  <!-- State estimation and control -->
+  <div class="row">
+    <div class="row-text">
+      <h3>State estimation and control</h3>
+      <p>
+        A constant-velocity Kalman filter fuses a motion model with the noisy detection. That
+        rejects bounding-box jitter and lets the platform coast through short detection dropouts.
+        An independent PID per axis turns the filtered pixel error into incremental angle
+        commands. The loop carries several guards I added during tuning: a slew-rate limit so no
+        command can slam a servo into its stop, derivative-kick protection on target acquisition,
+        and a deadband sized just above one command step so the platform locks cleanly instead of
+        dithering.
+      </p>
+    </div>
+    <div class="row-media">
+      <img src="../assets/images/turret-tracker/deck-arms.jpg"
+           alt="Assembled pan-tilt deck holding the camera arms">
+    </div>
+  </div>
+
+  <!-- Electronics and firmware -->
   <div class="row">
     <div class="row-media">
-      <!-- Replace with a wiring photo / ESP32 close-up -->
-      <div class="thumb-placeholder">ESP32 wiring / electronics photo<br>(assets/images/turret-tracker/)</div>
+      <img src="../assets/images/turret-tracker/circuitry.jpg"
+           alt="Turret wiring and electronics with the ESP32 and servo power supply">
     </div>
     <div class="row-text">
-      <h3>Firmware &amp; wireless link</h3>
+      <h3>Electronics and firmware</h3>
       <p>
-        The joint-angle targets are transmitted wirelessly to an ESP32 over Wi-Fi. Firmware
-        written in C++ on the Arduino framework, using the ESP32Servo library, receives the
-        targets and drives both axes via PWM. To suppress noise coming back onto the ESP32 rail
-        from the servos, the power lines are conditioned with 100&nbsp;µF decoupling capacitors and
-        flyback diodes.
+        Commands travel over UDP for low-latency, fire-and-forget delivery. The ESP32 firmware,
+        written in C++ on the Arduino framework, receives the angle targets and drives both servos
+        by PWM. The servos run from a dedicated 5 V / 3 A supply sized to the MG996R stall current,
+        sharing a common ground with the ESP32 (never its 3.3 V pin), with flyback diodes and
+        decoupling capacitors for power integrity.
       </p>
     </div>
   </div>
+</div>
+
+<!-- ===================== CLOSING THE LOOP ===================== -->
+<div class="container">
+  <h2>Closing the Loop: Six Failures, Found in Data</h2>
+  <p>
+    The most instructive part of the project was closing the loop. Every piece passed its bench
+    test in open loop, but the moment the camera was bolted on and started reacting to its own
+    motion, a sequence of control failures showed up that an open-loop test simply cannot reveal.
+    I found each one in logged data, traced it to a root cause, fixed it, and verified the fix.
+  </p>
+  <ol class="steps">
+    <li>
+      <strong>Derivative kick.</strong> On acquisition the error jumped from zero to full in one
+      frame, spiking the command and slamming the pan servo into its stop. I seeded the derivative
+      history, clamped the loop timestep, and added a slew-rate limit.
+    </li>
+    <li>
+      <strong>Inverted feedback sign.</strong> The loop pushed the subject out of frame instead of
+      centering them. I corrected the pan direction, changing one variable at a time so every
+      result stayed attributable.
+    </li>
+    <li>
+      <strong>Delay-induced limit cycle.</strong> A stationary subject produced a steady
+      oscillation of about 400 px at roughly 0.77 Hz that never decayed. A non-decaying oscillation
+      at fixed gain is the Ziegler-Nichols ultimate-gain condition, so the fault itself handed me
+      the tuning constants (Ku about 0.04, Tu about 1.3 s). I backed the gain below Ku and added
+      derivative damping.
+    </li>
+    <li>
+      <strong>Derivative noise.</strong> The derivative term amplified bounding-box jitter into
+      servo motion, worse the farther away the subject stood. I reduced derivative action and
+      low-pass filtered the centroid error.
+    </li>
+    <li>
+      <strong>Kalman ego-motion regression.</strong> Adding predictive lead made tracking worse,
+      because the filter read the camera's own panning as target velocity and chased a ghost. I
+      damped the velocity estimate and disabled the lead until camera motion could be compensated.
+    </li>
+    <li>
+      <strong>Hidden resolution bug.</strong> The camera was delivering 1280 px frames, not the
+      640 px the gains assumed, which doubled every error and pushed the command permanently past
+      the slew limit into a bang-bang oscillation that no gain change could fix. Forcing 640x480
+      cut slew saturation from 68% of frames to 1%, and steady-state error from 333 to 58 px RMS.
+    </li>
+  </ol>
+  <p>
+    One humbling detail: the tilt servo was unplugged for the entire tuning history, so every
+    "tilt is stable" result had been an artifact of a disconnected actuator. Once connected, it
+    showed the same inverted-sign fault and was corrected the same way. The throughline across all
+    of it was to trust the logged data over my own assumptions and to look upstream of the obvious
+    suspect before reaching for a more complex fix.
+  </p>
 </div>
 
 <!-- ===================== TOOLS & SKILLS ===================== -->
 <div class="container">
   <h2>Tools &amp; Skills</h2>
   <ul class="chips">
-    <li>Fusion 360</li>
-    <li>3D printing (PLA)</li>
     <li>Python</li>
+    <li>YOLOv8n</li>
+    <li>ByteTrack</li>
     <li>OpenCV</li>
-    <li>Computer vision</li>
-    <li>P-control</li>
+    <li>Kalman filtering</li>
+    <li>PID control</li>
+    <li>Ziegler-Nichols tuning</li>
+    <li>Control characterization</li>
+    <li>Data logging &amp; analysis</li>
     <li>ESP32</li>
     <li>Arduino / C++</li>
-    <li>ESP32Servo</li>
-    <li>PWM motor drive</li>
-    <li>Power-supply conditioning</li>
+    <li>UDP / Wi-Fi</li>
+    <li>PWM servo control</li>
+    <li>Power electronics</li>
+    <li>Fusion 360</li>
+    <li>3D printing (PLA)</li>
   </ul>
 </div>
 
 <!-- ===================== RESULTS ===================== -->
 <div class="container">
-  <h2>Results &amp; Status</h2>
+  <h2>Results &amp; Performance</h2>
   <p>
-    This is an active, in-progress project (Summer 2026). The mechanical assembly, vision
-    pipeline, P-controller, and wireless ESP32 firmware described above are built and working
-    together.
+    The tuned loop holds lock on nearly every frame, settles cleanly when the subject stops, and
+    has a measured step response. Here is the platform tracking in real time:
   </p>
-  <div class="placeholder">
-    <strong>Placeholder: add current outcomes as the build matures.</strong> For example:
-    tracking accuracy or latency you've measured, a demo video or GIF, the largest tracking error
-    the loop can recover from, and any next steps still planned. Avoid stating finished results
-    until you've confirmed them.
+
+  <div class="video-wrap">
+    <video controls preload="metadata" poster="../assets/images/turret-tracker/demo-poster.jpg">
+      <source src="../assets/video/turret-tracker/demo.mp4" type="video/mp4">
+      Your browser doesn't support embedded video.
+      <a href="../assets/video/turret-tracker/demo.mp4">Download the demo (MP4)</a>.
+    </video>
+    <p class="video-caption">Demo: the turret detecting and tracking a target in real time (turn sound on).</p>
   </div>
+
+  <p>
+    The control story is clearest in three figures: an uncontrolled oscillation before tuning, a
+    stable lock after, and a step response that characterizes the tuned loop.
+  </p>
+
+  <figure class="figure-block">
+    <img src="../assets/images/turret-tracker/plot-before-tuning.png"
+         alt="Plot of pan and tilt error before tuning, showing a constant-amplitude pan oscillation">
+    <figcaption>Before tuning: pan (blue) holds a constant-amplitude limit cycle that never settles; tilt (orange) sits flat.</figcaption>
+  </figure>
+
+  <figure class="figure-block">
+    <img src="../assets/images/turret-tracker/plot-after-tuning.png"
+         alt="Plot of pan and tilt error after tuning, showing both axes settling into the deadband">
+    <figcaption>After the resolution and saturation fix: both axes settle into the deadband once the subject stops moving.</figcaption>
+  </figure>
+
+  <figure class="figure-block">
+    <img src="../assets/images/turret-tracker/plot-step-response.png"
+         alt="Ensemble pan step response with individual traces and a bold mean line">
+    <figcaption>Pan step response across repeated sideways-step tests. The bold line is the mean: about 12% overshoot, 1.6 s rise, and 2.4 s settling, all from measured data.</figcaption>
+  </figure>
+
+  <h3>Measured performance</h3>
+  <dl class="facts">
+    <div>
+      <dt>Target lock rate</dt>
+      <dd>99 to 100% of frames</dd>
+    </div>
+    <div>
+      <dt>Control-loop rate</dt>
+      <dd>About 15 Hz</dd>
+    </div>
+    <div>
+      <dt>Steady-state error (pan)</dt>
+      <dd>40 to 55 px RMS</dd>
+    </div>
+    <div>
+      <dt>Step response (pan)</dt>
+      <dd>12% overshoot, 1.6 s rise, 2.4 s settle</dd>
+    </div>
+    <div>
+      <dt>Slew saturation (resolution fix)</dt>
+      <dd>68% to 1% of frames</dd>
+    </div>
+    <div>
+      <dt>Steady-state error (resolution fix)</dt>
+      <dd>333 to 58 px RMS</dd>
+    </div>
+  </dl>
+
+  <p>
+    One result is worth stating plainly: the remaining overshoot does not respond to further gain
+    or filter tuning, because the loop is now delay-limited. Two controlled experiments, one
+    varying the derivative gain and one varying the Kalman smoothing, left it essentially
+    unchanged. That is a characterization result, not a shortcoming, and it points to the next
+    upgrade: lower latency or a predictor.
+  </p>
 </div>
 
 <!-- ===================== GALLERY ===================== -->
 <div class="container">
   <h2>Gallery</h2>
-  <div class="placeholder">
-    <strong>Placeholder gallery.</strong> Drop images into
-    <code>assets/images/turret-tracker/</code> and I'll wire them in here as captioned figures.
-  </div>
-  <!-- Example figure structure for when images are added:
   <div class="gallery">
     <figure>
-      <img src="../assets/images/turret-tracker/bracket.jpg" alt="3D-printed pan-tilt bracket">
-      <figcaption>3D-printed PLA pan-tilt bracket</figcaption>
+      <img src="../assets/images/turret-tracker/deck-arms.jpg"
+           alt="Assembled pan-tilt deck with camera arms">
+      <figcaption>Assembled pan-tilt deck</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/turret-tracker/render-section.jpg"
+           alt="Section render of the turret internals">
+      <figcaption>Section render of the drivetrain</figcaption>
+    </figure>
+    <figure>
+      <img src="../assets/images/turret-tracker/print-bed.jpg"
+           alt="Turret parts laid out in the slicer before printing">
+      <figcaption>Parts staged in the slicer before printing</figcaption>
     </figure>
   </div>
-  -->
 </div>
 
 <!-- ===================== DOCUMENTATION ===================== -->
 <div class="container">
   <h2>Documentation</h2>
-  <div class="placeholder">
-    <strong>Placeholder: add your documentation files.</strong> Drop PDFs, drawings, BOMs, or
-    code exports into <code>assets/docs/turret-tracker/</code> and I'll link them as a download
-    list like the one below.
-  </div>
-  <!-- Example list structure for when docs are added:
   <ul class="doc-list">
     <li>
-      <a href="../assets/docs/turret-tracker/design-report.pdf">Design report (PDF)</a>
-      <span class="doc-meta">PDF</span>
+      <a href="../assets/docs/turret-tracker/ATT-01-case-study.pdf">ATT-01 Engineering Case Study (PDF)</a>
+      <span class="doc-meta">PDF, 9 pages</span>
+    </li>
+    <li>
+      <a href="../assets/docs/turret-tracker/ATT-01-BOM.xlsx">Bill of Materials (XLSX)</a>
+      <span class="doc-meta">Spreadsheet</span>
     </li>
   </ul>
-  -->
+  <p class="doc-note">
+    The case study covers the architecture, the control design, all six closed-loop failures and
+    fixes, and the measured results, with every figure reproduced from logged run data.
+  </p>
 </div>
 
 <div class="container page-footer">

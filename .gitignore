@@ -5,3 +5,6 @@
 
 # Windows system files
 Thumbs.db
+
+# Source video files (commit the compressed MP4 in assets/video/ instead)
+*.mov
