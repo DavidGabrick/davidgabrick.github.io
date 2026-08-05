@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>David Gabrick — Mechanical Engineering Portfolio</title>
+<style>
+/* =========================================================
+   Print stylesheet.
+   Black text on white. No colour, no tints, no boxes.
+   Hierarchy comes from size, weight and hairline rules only.
+   ========================================================= */
+
+@page {
+  size: Letter;
+  margin: 0.75in 0.8in 0.8in;
+  @bottom-left {
+    content: "davidgabrick.github.io";
+    font-family: Lato, "Liberation Sans", sans-serif;
+    font-size: 7.5pt;
+    color: #000;
+    vertical-align: top;
+    padding-top: 7pt;
+  }
+  @bottom-right {
+    content: counter(page);
+    font-family: Lato, "Liberation Sans", sans-serif;
+    font-size: 7.5pt;
+    color: #000;
+    vertical-align: top;
+    padding-top: 7pt;
+  }
+}
+
+@page cover {
+  margin: 0;
+  @bottom-left { content: ""; }
+  @bottom-right { content: ""; }
+}
+
+html { font-size: 10.5pt; }
+
+body {
+  margin: 0;
+  font-family: Lato, "Liberation Sans", sans-serif;
+  color: #000;
+  line-height: 1.5;
+}
+
+p { margin: 0 0 9pt; text-align: justify; }
+a { color: #000; text-decoration: none; }
+img { max-width: 100%; }
+strong { font-weight: 700; }
+
+/* ---------------- cover ---------------- */
+.cover {
+  page: cover;
+  height: 11in;
+  width: 8.5in;
+  position: relative;
+  page-break-after: always;
+}
+
+.cover-inner {
+  position: absolute;
+  top: 3.1in;
+  left: 0.95in;
+  right: 0.95in;
+}
+
+.cover h1 {
+  font-size: 38pt;
+  line-height: 1.05;
+  margin: 0 0 12pt;
+  letter-spacing: -0.5pt;
+  font-weight: 700;
+}
+
+.cover .cover-sub {
+  font-size: 14pt;
+  margin: 0;
+  padding-top: 12pt;
+  border-top: 0.75pt solid #000;
+  font-weight: 400;
+  text-align: left;
+}
+
+.cover .cover-note {
+  font-size: 10pt;
+  margin-top: 14pt;
+  max-width: 4.9in;
+  text-align: left;
+  line-height: 1.55;
+}
+
+.cover-contact {
+  position: absolute;
+  left: 0.95in;
+  right: 0.95in;
+  bottom: 1.5in;
+  border-top: 0.75pt solid #000;
+  padding-top: 11pt;
+  font-size: 9.5pt;
+}
+
+.cover-contact span { display: inline-block; margin-right: 30pt; }
+.cover-contact .lbl {
+  display: block;
+  font-size: 7pt;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 2pt;
+}
+
+/* ---------------- contents ---------------- */
+.section { page-break-before: always; }
+
+h2.page-title {
+  font-size: 19pt;
+  margin: 0 0 10pt;
+  padding-bottom: 6pt;
+  border-bottom: 0.75pt solid #000;
+  font-weight: 700;
+}
+
+.toc { margin: 0; padding: 0; list-style: none; font-size: 10.5pt; }
+
+.toc li { padding: 5.5pt 0; }
+.toc .toc-main { font-weight: 700; }
+.toc .toc-sub  { padding-left: 16pt; font-size: 9.5pt; }
+.toc a { display: block; }
+
+.toc a::after {
+  content: " " leader('.') " " target-counter(attr(href), page);
+  font-weight: 400;
+}
+
+.toc .fixed-page::after {
+  content: " " leader('.') " " attr(data-page);
+  font-weight: 400;
+}
+
+.about-block { margin-top: 24pt; }
+
+.about-table { width: 100%; border-collapse: collapse; }
+.about-table td { vertical-align: top; }
+.about-table .ab-text { padding-right: 22pt; }
+.about-table .ab-photo { width: 2.1in; }
+.about-table .ab-photo img { width: 2.1in; height: 2.1in; object-fit: cover; display: block; }
+
+/* ---------------- project pages ---------------- */
+.proj-header { page-break-before: always; page-break-after: avoid; }
+
+.eyebrow {
+  font-size: 7.5pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 8pt;
+  padding-bottom: 7pt;
+  border-bottom: 0.75pt solid #000;
+  text-align: left;
+}
+
+.proj-header h1 {
+  font-size: 24pt;
+  line-height: 1.12;
+  margin: 0 0 4pt;
+  letter-spacing: -0.3pt;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 11pt;
+  margin: 0 0 12pt;
+  text-align: left;
+}
+
+.hero-image {
+  width: 100%;
+  height: 3.1in;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 4pt;
+}
+
+/* For renders on a white ground: show the whole frame, never crop. */
+.hero-image--full {
+  height: 3.5in;
+  object-fit: contain;
+  object-position: center;
+}
+
+h2 {
+  font-size: 13.5pt;
+  margin: 20pt 0 8pt;
+  padding-bottom: 5pt;
+  border-bottom: 0.75pt solid #000;
+  page-break-after: avoid;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 10.5pt;
+  margin: 12pt 0 4pt;
+  page-break-after: avoid;
+  font-weight: 700;
+}
+
+/* quick-facts strip: hairline rules only, no box */
+.facts {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 0.75pt solid #000;
+  border-bottom: 0.75pt solid #000;
+  margin: 12pt 0 4pt;
+  page-break-inside: avoid;
+}
+
+.facts td { padding: 8pt 14pt 8pt 0; vertical-align: top; width: 25%; }
+.facts td:last-child { padding-right: 0; }
+
+.facts .dt {
+  font-size: 6.8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 2pt;
+}
+
+.facts .dd { font-size: 9.5pt; font-weight: 700; line-height: 1.35; }
+
+/* text + image rows */
+.row {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 14pt 0;
+  page-break-inside: avoid;
+}
+
+.row td { vertical-align: top; width: 50%; }
+.row .r-text { padding-right: 16pt; }
+.row .r-media { padding-left: 16pt; }
+.row.flip .r-text { padding-right: 0; padding-left: 16pt; }
+.row.flip .r-media { padding-left: 0; padding-right: 16pt; }
+
+.row img { width: 100%; max-height: 2.35in; object-fit: cover; display: block; }
+.row p:last-child { margin-bottom: 0; }
+
+.pipeline {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 7.6pt;
+  margin: 8pt 0 0;
+  padding-left: 10pt;
+  border-left: 0.75pt solid #000;
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* tools & skills: plain running text */
+.skills { margin: 6pt 0 0; text-align: left; line-height: 1.7; }
+
+/* numbered list */
+.steps { padding-left: 15pt; margin: 8pt 0 9pt; }
+.steps li { margin-bottom: 7pt; text-align: justify; page-break-inside: avoid; }
+
+/* figures */
+.figure-block { margin: 12pt 0; page-break-inside: avoid; }
+.figure-block img { width: 100%; display: block; }
+.caption { font-size: 8pt; margin-top: 4pt; line-height: 1.4; text-align: left; }
+
+/* gallery */
+.gallery { width: 100%; border-collapse: separate; border-spacing: 9pt; margin: 6pt -9pt 0; page-break-inside: avoid; }
+.gallery td { width: 33.33%; vertical-align: top; }
+.gallery img { width: 100%; height: 1.32in; object-fit: cover; display: block; }
+.gallery .caption { margin-top: 3pt; font-size: 7.5pt; }
+
+/* measured-performance table */
+.perf { width: 100%; border-collapse: collapse; margin-top: 8pt; page-break-inside: avoid; }
+.perf tr { border-bottom: 0.5pt solid #000; }
+.perf tr:first-child { border-top: 0.75pt solid #000; }
+.perf td { padding: 6pt 0; font-size: 9.5pt; }
+.perf td.k { width: 55%; }
+.perf td.v { font-weight: 700; text-align: right; }
+
+/* documentation: plain lines, no boxes */
+.doc-list { list-style: none; padding: 0; margin: 8pt 0 0; }
+.doc-list li {
+  padding: 6pt 0;
+  border-bottom: 0.5pt solid #000;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+.doc-list li:first-child { border-top: 0.75pt solid #000; }
+.doc-list .d-name { font-weight: 700; }
+
+.note { font-size: 8.5pt; margin-top: 8pt; line-height: 1.5; text-align: left; }
+
+.lede { margin-top: 10pt; }
+
+.closing {
+  margin-top: 16pt;
+  padding-top: 10pt;
+  border-top: 0.75pt solid #000;
+  font-size: 9.5pt;
+  text-align: left;
+  line-height: 1.6;
+  page-break-inside: avoid;
+}
+
+/* appendix divider pages */
+.divider { page-break-before: always; height: 8.4in; }
+.divider-inner { padding-top: 3.1in; }
+.divider .eyebrow { font-size: 8pt; letter-spacing: 0.18em; border-bottom: none; padding-bottom: 0; margin-bottom: 6pt; }
+.divider h1 { font-size: 26pt; margin: 0 0 10pt; padding-bottom: 10pt; border-bottom: 0.75pt solid #000; font-weight: 700; letter-spacing: -0.3pt; }
+.divider p { font-size: 10.5pt; max-width: 5in; text-align: left; }
+
+.avoid-break { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<div class="cover">
+  <div class="cover-inner">
+    <h1>David Gabrick</h1>
+    <p class="cover-sub">Mechanical Engineering Portfolio</p>
+    <p class="cover-note">
+      Mechanical Engineering student at the University of Texas at Arlington, focused on building
+      practical, real-world systems: design and fabrication of mechanical components, vision-guided
+      control, and high-performance vehicle systems with UTA Racing Formula SAE.
+    </p>
+  </div>
+
+  <div class="cover-contact">
+    <span><span class="lbl">Email</span>davidgabrick.dg@gmail.com</span>
+    <span><span class="lbl">LinkedIn</span>linkedin.com/in/david-gabrick</span>
+    <span><span class="lbl">Portfolio</span>davidgabrick.github.io</span>
+  </div>
+
+</div>
+
+<!-- ============================ CONTENTS ============================ -->
+<div class="section">
+  <h2 class="page-title">Contents</h2>
+
+  <ul class="toc">
+    <li class="toc-main"><a href="#about">About</a></li>
+    <li class="toc-main"><a href="#turret">Autonomous Turret Tracker (ATT-01)</a></li>
+    <li class="toc-sub"><a href="#turret-approach">Approach &amp; process</a></li>
+    <li class="toc-sub"><a href="#turret-loop">Closing the loop: six failures, found in data</a></li>
+    <li class="toc-sub"><a href="#turret-results">Results &amp; performance</a></li>
+    <li class="toc-main"><a href="#crane">Level-Luffing Mechanical Crane</a></li>
+    <li class="toc-sub"><a href="#crane-approach">Approach &amp; process</a></li>
+    <li class="toc-sub"><a href="#crane-results">Results &amp; outcomes</a></li>
+    <li class="toc-main"><a href="#inprogress">In Progress</a></li>
+    <li class="toc-main"><a href="#appendix-a" class="fixed-page" data-page="14">Appendix A — ATT-01 Engineering Case Study</a></li>
+    <li class="toc-main"><a href="#appendix-b" class="fixed-page" data-page="24">Appendix B — White Crane Design Report</a></li>
+  </ul>
+
+  <div class="about-block" id="about">
+    <h2>About</h2>
+    <table class="about-table">
+      <tr>
+        <td class="ab-text">
+          <p>
+            I'm a Mechanical Engineering student at the University of Texas at Arlington with a
+            focus on building practical, real-world systems. I have experience designing and
+            fabricating mechanical components and currently contribute to the UTA Racing Formula
+            SAE team developing high-performance vehicle systems.
+          </p>
+          <p>
+            The two projects in this portfolio cover both halves of that work. The Autonomous
+            Turret Tracker is a solo, full-stack vision-guided control platform: mechanical design,
+            electronics, firmware, perception, and a closed loop tuned and characterized from
+            logged data. The Level-Luffing Mechanical Crane is a four-person academic design
+            project I led, taking a linkage mechanism from concept through SolidWorks, FEA, and a
+            drawing package to a working 3D-printed prototype. The full engineering report for each
+            is reproduced as an appendix.
+          </p>
+        </td>
+        <td class="ab-photo">
+          <img src="assets/images/profile/DSC_1555.jpg" alt="Portrait of David Gabrick">
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================ PROJECT 1: TURRET ============================ -->
+<div class="proj-header" id="turret">
+  <p class="eyebrow">Project 01 &nbsp;·&nbsp; Personal &nbsp;·&nbsp; Solo &nbsp;·&nbsp; Summer 2026</p>
+  <h1>Autonomous Turret Tracker (ATT-01)</h1>
+  <p class="tagline">A vision-guided pan-tilt platform that detects a person, holds lock, and keeps the target centered in real time.</p>
+  <img class="hero-image hero-image--full" src="assets/images/turret-tracker/render.jpg"
+       alt="CAD render of the ATT-01 pan-tilt turret platform">
+</div>
+
+<h2>Overview</h2>
+<p>
+  ATT-01 is a self-contained pan-tilt platform that keeps a moving target centered in frame. A
+  laptop detects a person with a YOLOv8n neural network, holds a persistent lock on that specific
+  subject with ByteTrack, and estimates the target's motion with a Kalman filter. A per-axis PID
+  loop turns the tracking error into servo-angle commands, which stream over Wi-Fi to an ESP32
+  that drives the pan and tilt servos. What separates it from a typical hobby tracker is that it
+  was tuned and characterized like a real control system, with every design decision backed by
+  logged data.
+</p>
+
+<table class="facts">
+  <tr>
+    <td><div class="dt">Type</div><div class="dd">Personal project</div></td>
+    <td><div class="dt">Timeframe</div><div class="dd">Summer 2026</div></td>
+    <td><div class="dt">Team size</div><div class="dd">Solo</div></td>
+    <td><div class="dt">My role</div><div class="dd">Whole stack: mechanical, electronics, firmware, vision, control</div></td>
+  </tr>
+</table>
+
+<h3>Why I built it</h3>
+<p>
+  I want to work on vision-guided control systems in defense and aerospace. The interest started
+  with photography and a curiosity about how stabilized camera gimbals hold a subject locked in
+  frame. ATT-01 is my hands-on route into that problem: the same detection, estimation, and
+  closed-loop control that keep a gimbal locked on its subject.
+</p>
+
+<h2>The Objective</h2>
+<p>
+  The aim was a project that shows real systems-engineering work, not just a quick demo. I set out
+  to detect and follow a specific person in real time and hold lock even when they stop moving; to
+  close a genuine feedback loop from camera to servo and tune it with engineering rigor instead of
+  trial and error; to instrument the system so every decision could be backed by measured data; and
+  to integrate the full stack, from optics and vision through estimation, control, firmware, and a
+  3D-printed mechanical assembly, into one working platform.
+</p>
+
+<h2 id="turret-approach">Approach &amp; Process</h2>
+
+<table class="row">
+  <tr>
+    <td class="r-text">
+      <h3>System architecture</h3>
+      <p>
+        The platform splits the work between a host laptop, which handles perception and control,
+        and an ESP32, which handles actuation. The two talk over Wi-Fi. Keeping the heavy vision
+        and control math on the laptop let me iterate quickly while the microcontroller stayed
+        responsible for one job: driving the servos.
+      </p>
+      <p class="pipeline">
+        USB webcam → YOLOv8n detection → ByteTrack ID → centroid → Kalman filter → per-axis PID →
+        UDP over Wi-Fi → ESP32 → 50 Hz PWM → MG996R (pan) + SG90 (tilt)
+      </p>
+    </td>
+    <td class="r-media">
+      <img src="assets/images/turret-tracker/render-section.jpg"
+           alt="Section render of the turret showing the internal pan and tilt drivetrain">
+      <div class="caption">Section render of the pan and tilt drivetrain.</div>
+    </td>
+  </tr>
+</table>
+
+<table class="row flip">
+  <tr>
+    <td class="r-media">
+      <img src="assets/images/turret-tracker/pedestal.jpg"
+           alt="3D-printed pedestal base of the turret with internal hardware">
+      <div class="caption">3D-printed pedestal base with internal hardware.</div>
+    </td>
+    <td class="r-text">
+      <h3>Mechanical design</h3>
+      <p>
+        The pan-tilt assembly is a custom 3D-printed bracket. The pan axis uses an MG996R servo to
+        swing the whole camera mass; the tilt axis uses a lighter SG90. Because the two axes are
+        physically different plants with different inertia, I treated and tuned them separately
+        rather than forcing one set of gains on both. The full paid bill of materials came to about
+        $45.
+      </p>
+    </td>
+  </tr>
+</table>
+
+<table class="row">
+  <tr>
+    <td class="r-text">
+      <h3>Detection and locking</h3>
+      <p>
+        Instead of reacting to motion, the platform detects a designated target. YOLOv8n classifies
+        a person in each frame, and ByteTrack assigns a persistent ID so the system keeps following
+        the same subject through clutter, a second mover, and brief occlusion, and does not lose
+        them when they stand still. After a sustained loss, it reacquires on its own.
+      </p>
+    </td>
+    <td class="r-media">
+      <img src="assets/images/turret-tracker/camera-module.jpg"
+           alt="Close-up of the camera module mounted on the turret">
+      <div class="caption">Camera module mounted on the tilt deck.</div>
+    </td>
+  </tr>
+</table>
+
+<table class="row flip">
+  <tr>
+    <td class="r-media">
+      <img src="assets/images/turret-tracker/deck-arms.jpg"
+           alt="Assembled pan-tilt deck holding the camera arms">
+      <div class="caption">Assembled pan-tilt deck and camera arms.</div>
+    </td>
+    <td class="r-text">
+      <h3>State estimation and control</h3>
+      <p>
+        A constant-velocity Kalman filter fuses a motion model with the noisy detection. That
+        rejects bounding-box jitter and lets the platform coast through short detection dropouts.
+        An independent PID per axis turns the filtered pixel error into incremental angle commands.
+        The loop carries several guards I added during tuning: a slew-rate limit that caps how far
+        the command can move in a single frame, so a spike becomes slow, correctable motion instead
+        of a full-speed swing; derivative-kick protection on target acquisition; and a deadband
+        sized just above one command step so the platform locks cleanly instead of dithering.
+      </p>
+    </td>
+  </tr>
+</table>
+
+<table class="row">
+  <tr>
+    <td class="r-text">
+      <h3>Electronics and firmware</h3>
+      <p>
+        Commands travel over UDP for low-latency, fire-and-forget delivery. The ESP32 firmware,
+        written in C++ on the Arduino framework, receives the angle targets and drives both servos
+        by PWM. The servos run from a dedicated 5 V / 3 A supply sized to the MG996R stall current,
+        sharing a common ground with the ESP32 (never its 3.3 V pin), with flyback diodes and
+        decoupling capacitors for power integrity.
+      </p>
+    </td>
+    <td class="r-media">
+      <img src="assets/images/turret-tracker/circuitry.jpg"
+           alt="Turret wiring and electronics with the ESP32 and servo power supply">
+      <div class="caption">Wiring: ESP32, servo supply, and power-integrity components.</div>
+    </td>
+  </tr>
+</table>
+
+<h2 id="turret-loop">Closing the Loop: Six Failures, Found in Data</h2>
+<p>
+  The most instructive part of the project was closing the loop. Every piece passed its bench test
+  in open loop, but the moment the camera was bolted on and started reacting to its own motion, a
+  sequence of control failures showed up that an open-loop test simply cannot reveal. I found each
+  one in logged data, traced it to a root cause, fixed it, and verified the fix.
+</p>
+
+<ol class="steps">
+  <li>
+    <strong>Derivative kick.</strong> On acquisition the error jumped from zero to full in one
+    frame, spiking the command and slamming the pan servo into its stop. I seeded the derivative
+    history, clamped the loop timestep, and added a slew-rate limit.
+  </li>
+  <li>
+    <strong>Inverted feedback sign.</strong> The loop pushed the subject out of frame instead of
+    centering them. I corrected the pan direction, changing one variable at a time so every result
+    stayed attributable.
+  </li>
+  <li>
+    <strong>Delay-induced limit cycle.</strong> A stationary subject produced a steady oscillation
+    of about 400 px at roughly 0.77 Hz that never decayed. A non-decaying oscillation at fixed gain
+    is the Ziegler-Nichols ultimate-gain condition, so the fault itself handed me the tuning
+    constants (K<sub>u</sub> ≈ 0.04, T<sub>u</sub> ≈ 1.3 s). I backed the gain below K<sub>u</sub>
+    and added derivative damping.
+  </li>
+  <li>
+    <strong>Derivative noise.</strong> The derivative term amplified bounding-box jitter into servo
+    motion, worse the farther away the subject stood. I reduced derivative action and low-pass
+    filtered the centroid error.
+  </li>
+  <li>
+    <strong>Kalman ego-motion regression.</strong> Adding predictive lead made tracking worse,
+    because the filter read the camera's own panning as target velocity and chased a ghost. I
+    damped the velocity estimate and disabled the lead until camera motion could be compensated.
+  </li>
+  <li>
+    <strong>Hidden resolution bug.</strong> The camera was delivering 1280 px frames, not the 640 px
+    the gains assumed, which doubled every error and held the command permanently at the slew-rate
+    limit, so every frame moved by the maximum allowed step. That is bang-bang behavior, and
+    bang-bang is gain-independent, which is why no gain change could fix it. Forcing 640×480 cut
+    slew saturation from 68% of frames to 1%, and steady-state error from 333 to 58 px RMS.
+  </li>
+</ol>
+
+<p>
+  <strong>One humbling detail:</strong> the tilt servo was unplugged for the entire tuning history,
+  so every "tilt is stable" result had been an artifact of a disconnected actuator. Once connected,
+  it showed the same inverted-sign fault and was corrected the same way. The throughline across all
+  of it was to trust the logged data over my own assumptions and to look upstream of the obvious
+  suspect before reaching for a more complex fix.
+</p>
+
+<h2>Tools &amp; Skills</h2>
+<p class="skills">
+  Python · YOLOv8n · ByteTrack · OpenCV · Kalman filtering · PID control · Ziegler-Nichols tuning ·
+  Control characterization · Data logging and analysis · ESP32 · Arduino / C++ · UDP over Wi-Fi ·
+  PWM servo control · Power electronics · Fusion 360 · 3D printing (PLA)
+</p>
+
+<h2 id="turret-results">Results &amp; Performance</h2>
+<p>
+  The tuned loop holds lock on nearly every frame, settles cleanly when the subject stops, and has
+  a measured step response. The control story is clearest in three figures: an uncontrolled
+  oscillation before tuning, a stable lock after, and a step response that characterizes the tuned
+  loop.
+</p>
+
+<div class="figure-block">
+  <img src="assets/images/turret-tracker/plot-before-tuning.png"
+       alt="Plot of pan and tilt error before tuning, showing a constant-amplitude pan oscillation">
+  <div class="caption">Before tuning: pan (blue) holds a constant-amplitude limit cycle that never settles; tilt (orange) sits flat.</div>
+</div>
+
+<div class="figure-block">
+  <img src="assets/images/turret-tracker/plot-after-tuning.png"
+       alt="Plot of pan and tilt error after tuning, showing both axes settling into the deadband">
+  <div class="caption">After the resolution and saturation fix: both axes settle into the deadband once the subject stops moving.</div>
+</div>
+
+<div class="figure-block">
+  <img src="assets/images/turret-tracker/plot-step-response.png"
+       alt="Ensemble pan step response with individual traces and a bold mean line">
+  <div class="caption">Pan step response across repeated sideways-step tests. The bold line is the mean: about 12% overshoot, 1.6 s rise, and 2.4 s settling, all from measured data.</div>
+</div>
+
+<div class="avoid-break">
+  <h3>Measured performance</h3>
+  <table class="perf">
+    <tr><td class="k">Target lock rate</td><td class="v">99–100% of frames</td></tr>
+    <tr><td class="k">Control-loop rate</td><td class="v">≈ 15 Hz</td></tr>
+    <tr><td class="k">Steady-state error (pan)</td><td class="v">40–55 px RMS</td></tr>
+    <tr><td class="k">Step response (pan)</td><td class="v">12% overshoot, 1.6 s rise, 2.4 s settle</td></tr>
+    <tr><td class="k">Slew saturation (resolution fix)</td><td class="v">68% → 1% of frames</td></tr>
+    <tr><td class="k">Steady-state error (resolution fix)</td><td class="v">333 → 58 px RMS</td></tr>
+  </table>
+</div>
+
+<p class="lede">
+  One result is worth stating plainly: the remaining overshoot does not respond to further gain or
+  filter tuning, because the loop is now delay-limited. Two controlled experiments, one varying the
+  derivative gain and one varying the Kalman smoothing, left it essentially unchanged. That is a
+  characterization result, not a shortcoming, and it points to the next upgrade: lower latency or a
+  predictor.
+</p>
+
+<p>
+  <strong>Live demo video.</strong> A recording of the turret detecting and tracking a target in
+  real time is embedded on the portfolio site: davidgabrick.github.io
+</p>
+
+<h2>Gallery</h2>
+<table class="gallery">
+  <tr>
+    <td>
+      <img src="assets/images/turret-tracker/hero.jpg" alt="The finished ATT-01 pan-tilt turret">
+      <div class="caption">The finished build</div>
+    </td>
+    <td>
+      <img src="assets/images/turret-tracker/deck-arms.jpg" alt="Assembled pan-tilt deck with camera arms">
+      <div class="caption">Assembled pan-tilt deck</div>
+    </td>
+    <td>
+      <img src="assets/images/turret-tracker/render-section.jpg" alt="Section render of the turret internals">
+      <div class="caption">Section render of the drivetrain</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/images/turret-tracker/print-bed.jpg" alt="Turret parts laid out in the slicer before printing">
+      <div class="caption">Parts staged in the slicer</div>
+    </td>
+    <td>
+      <img src="assets/images/turret-tracker/pedestal.jpg" alt="Pedestal base of the turret">
+      <div class="caption">Pedestal base</div>
+    </td>
+    <td>
+      <img src="assets/images/turret-tracker/circuitry.jpg" alt="Turret wiring and electronics">
+      <div class="caption">Electronics and wiring</div>
+    </td>
+  </tr>
+</table>
+
+<h2>Documentation</h2>
+<ul class="doc-list">
+  <li><span class="d-name">ATT-01 Engineering Case Study</span> — reproduced in full as Appendix A (9 pages)</li>
+  <li><span class="d-name">Bill of Materials (XLSX)</span> — available on request, or at davidgabrick.github.io</li>
+</ul>
+<p class="note">
+  The case study covers the architecture, the control design, all six closed-loop failures and
+  fixes, and the measured results, with every figure reproduced from logged run data.
+</p>
+
+<!-- ============================ PROJECT 2: CRANE ============================ -->
+<div class="proj-header" id="crane">
+  <p class="eyebrow">Project 02 &nbsp;·&nbsp; Academic (MAE 1351) &nbsp;·&nbsp; Team of 4, project lead &nbsp;·&nbsp; Spring 2026</p>
+  <h1>Level-Luffing Mechanical Crane</h1>
+  <p class="tagline">The White Crane</p>
+  <img class="hero-image" src="assets/images/mechanical-crane/crane-hero.jpg"
+       alt="The White Crane level-luffing crane prototype">
+</div>
+
+<h2>Overview</h2>
+<p>
+  "The White Crane" was our final design project for MAE 1351, Introduction to Engineering Design
+  (Dr. Raul Fernandez). Working in a four-person team, we designed, simulated, and fabricated a
+  <strong>level-luffing crane</strong>: a crane whose linkage keeps its end effector level as the
+  jib reaches in and out, instead of letting it rise and dip through the arc. We designed it in
+  SolidWorks, ran an FEA study, and built a working 3D-printed prototype driven by a linear
+  actuator.
+</p>
+
+<table class="facts">
+  <tr>
+    <td><div class="dt">Type</div><div class="dd">Academic team project (MAE 1351)</div></td>
+    <td><div class="dt">Timeframe</div><div class="dd">Spring 2026</div></td>
+    <td><div class="dt">Team size</div><div class="dd">4 (Team 2, "The White Crane")</div></td>
+    <td><div class="dt">My role</div><div class="dd">Project Lead, most of the design and build</div></td>
+  </tr>
+</table>
+
+<h3>My contribution</h3>
+<p>
+  I led the four-person team and did most of the design and build work. The level-luffing concept
+  came from research I did during brainstorming, which we then adapted for our needs. I modeled
+  every part in SolidWorks (the base frame, linkage arms, claw, actuator mounts, and the brackets
+  and spacers), which kept the assembly consistent and let me catch fitment problems before
+  anything was printed. I also produced the working drawings, including the assembly drawing and
+  the detail drawings with tolerances and GD&amp;T. I printed every part on a Bambu Lab printer
+  (reprinting the ones that came out weak or didn't fit), assembled the full mechanism (linkages,
+  actuator, rack and pinion, and claw), soldered the wiring for the servos, actuator, battery, and
+  controls, and helped write the control code that sequenced the actuator and claw.
+</p>
+
+<h2>The Challenge</h2>
+<p>
+  The graded task was to flip a Solo cup autonomously. A standoff rule made it harder: the
+  mechanism had to stay at least one foot away from the cup, so the crane had to reach in from a
+  distance and flip the cup rather than work right next to it. Flipping the cup once within 30
+  seconds earned full credit. We went further: the crane flipped the cup once, then twice more in a
+  row to return the cup to its original position, which earned bonus points.
+</p>
+
+<h2 id="crane-approach">Approach &amp; Process</h2>
+
+<table class="row">
+  <tr>
+    <td class="r-text">
+      <h3>Keeping the claw level</h3>
+      <p>
+        Our main modification to the standard level-luffing design was letting the front (reaching)
+        arm dangle, or pivot freely, as it extends forward. Extending the arm to lower the claw had
+        been making the claw clip into the ground; allowing the arm to pivot keeps the claw level
+        through the reach instead.
+      </p>
+    </td>
+    <td class="r-media">
+      <img src="assets/images/mechanical-crane/crane-render-arm.jpg"
+           alt="SolidWorks render of the crane's reaching arm and leveling claw linkage">
+      <div class="caption">The reaching arm and leveling claw linkage.</div>
+    </td>
+  </tr>
+</table>
+
+<table class="row flip">
+  <tr>
+    <td class="r-media">
+      <img src="assets/images/mechanical-crane/crane-cad-assembly.jpg"
+           alt="SolidWorks assembly view of the crane showing the open base frame and stabilizing legs">
+      <div class="caption">Assembly view: open base frame and stabilizing legs.</div>
+    </td>
+    <td class="r-text">
+      <h3>Stability without a counterweight</h3>
+      <p>
+        Rather than balance the crane with a counterweight, we removed it entirely and added legs
+        to the base for stability. We also reworked the base into a more open, more cost-effective
+        frame.
+      </p>
+    </td>
+  </tr>
+</table>
+
+<table class="row">
+  <tr>
+    <td class="r-text">
+      <h3>Fabrication, actuation &amp; controls</h3>
+      <p>
+        Every part was 3D-printed on a Bambu Lab printer, with weak or ill-fitting parts reprinted,
+        then assembled into the working mechanism: linkages, the linear actuator, a rack and
+        pinion, and the claw. The claw's grabbers are fastened with four 6 mm M4 threaded inserts
+        (a commercial off-the-shelf kit) for durable machine-screw threads. The servos, actuator,
+        battery, and controls were wired and soldered in, and control code sequenced the actuator
+        and claw so they moved in the right order.
+      </p>
+    </td>
+    <td class="r-media">
+      <img src="assets/images/mechanical-crane/crane-printed-part.jpg"
+           alt="A 3D-printed crane part on the Bambu Lab printer bed">
+      <div class="caption">A printed part on the Bambu Lab bed.</div>
+    </td>
+  </tr>
+</table>
+
+<table class="row flip">
+  <tr>
+    <td class="r-media">
+      <img src="assets/images/mechanical-crane/crane-fea.jpg"
+           alt="SolidWorks FEA Von Mises stress plot of the actuated link under a 1000 N load">
+      <div class="caption">Von Mises stress plot of the actuated link at 1000 N.</div>
+    </td>
+    <td class="r-text">
+      <h3>Simulation &amp; FEA</h3>
+      <p>
+        We analyzed the link the actuator pushes on using SolidWorks Simulation. The load was
+        applied at the 11th hole from the bottom-right, where the linear actuator acts on the link,
+        with fixtures at the top-left (the connecting link) and the bottom-right (fixed to the
+        base's rod). At the actuator's maximum output of 1000 N, the Von Mises results showed most
+        of the part in low stress, with a localized high-stress region at the fixed bottom-right
+        area. That spot is the most likely to deform and the clearest candidate for reinforcement
+        in a future revision.
+      </p>
+    </td>
+  </tr>
+</table>
+
+<h2>Tools &amp; Skills</h2>
+<p class="skills">
+  SolidWorks (CAD) · SolidWorks Visualize · SolidWorks Simulation (FEA) · Engineering drawings and
+  GD&amp;T · Mechanism and linkage design · 3D printing (Bambu Lab) · Linear actuator and
+  rack-and-pinion · Wiring and soldering · Control programming · Threaded-insert assembly ·
+  Project leadership
+</p>
+
+<h2 id="crane-results">Results &amp; Outcomes</h2>
+<p>
+  The prototype did the job: it flipped the Solo cup autonomously within the time limit for full
+  credit, then flipped it twice more in a row to return the cup to its original position for bonus
+  points. The dangling-arm modification kept the claw level through the reach, and the legged base
+  provided stability in place of a counterweight. The SolidWorks FEA confirmed the actuated link
+  carries the actuator's 1000 N maximum load with stress concentrated at the fixed end, the spot
+  we'd reinforce in a future revision.
+</p>
+
+<h2>Gallery</h2>
+<table class="gallery">
+  <tr>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-render.jpg" alt="SolidWorks Visualize render of The White Crane holding a cup">
+      <div class="caption">SolidWorks Visualize render</div>
+    </td>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-prototype.jpg" alt="The completed 3D-printed White Crane prototype">
+      <div class="caption">The completed prototype</div>
+    </td>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-operation.jpg" alt="The crane lifting a cup with the claw kept level">
+      <div class="caption">Lifting with the claw kept level</div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-operation-2.jpg" alt="The crane mid-lift, viewed from a second angle">
+      <div class="caption">Mid-lift, second angle</div>
+    </td>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-assembly-drawing.jpg" alt="Assembly drawing of the crane mechanism">
+      <div class="caption">Assembly drawing</div>
+    </td>
+    <td>
+      <img src="assets/images/mechanical-crane/crane-detail-drawing.jpg" alt="Detail part drawing with tolerances and GD&amp;T">
+      <div class="caption">Detail drawing (tolerances &amp; GD&amp;T)</div>
+    </td>
+  </tr>
+</table>
+
+<h2>Documentation</h2>
+<ul class="doc-list">
+  <li><span class="d-name">White Crane Design Report</span> — reproduced in full as Appendix B (10 pages)</li>
+</ul>
+<p class="note">
+  Covers the overview, design rationale, the FEA study, and the engineering drawing package. The
+  roster page listing teammates' student ID numbers has been removed for privacy.
+</p>
+
+<!-- ============================ IN PROGRESS ============================ -->
+<div id="inprogress" style="page-break-inside: avoid">
+  <h2>In Progress</h2>
+
+  <p style="margin-bottom:5pt">
+    <strong>Cycloidal Drive Gearbox</strong> (Fall 2026) — a high-reduction cycloidal gearbox.
+    Personal project, not yet started; design, tooling, and results will be added to the portfolio
+    site as the work progresses.
+  </p>
+  <p>
+    <strong>UTA Racing — Formula SAE</strong> — ongoing contribution to high-performance vehicle
+    systems with the UTA Racing Formula SAE team.
+  </p>
+
+  <div class="closing">
+    <strong>Live portfolio:</strong> davidgabrick.github.io — includes the ATT-01 tracking demo
+    video, full-resolution images, and downloadable documentation.<br>
+    <strong>Contact:</strong> davidgabrick.dg@gmail.com &nbsp;·&nbsp; linkedin.com/in/david-gabrick
+  </div>
+</div>
+
+<!-- ============================ APPENDIX DIVIDERS ============================ -->
+<div class="divider" id="appendix-a">
+  <div class="divider-inner">
+    <p class="eyebrow">Appendix A</p>
+    <h1>ATT-01 Engineering Case Study</h1>
+    <p>
+      The complete 9-page case study for the Autonomous Turret Tracker: system architecture,
+      control design, all six closed-loop failures and their fixes, and the measured results, with
+      every figure reproduced from logged run data.
+    </p>
+  </div>
+</div>
+
+<div class="divider" id="appendix-b">
+  <div class="divider-inner">
+    <p class="eyebrow">Appendix B</p>
+    <h1>White Crane Design Report</h1>
+    <p>
+      The complete 10-page design report for the Level-Luffing Mechanical Crane: project overview,
+      design rationale, the SolidWorks FEA study, and the full engineering drawing package. The
+      roster page listing teammates' student ID numbers has been removed for privacy.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

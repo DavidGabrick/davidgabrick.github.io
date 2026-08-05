@@ -150,8 +150,9 @@
         A constant-velocity Kalman filter fuses a motion model with the noisy detection. That
         rejects bounding-box jitter and lets the platform coast through short detection dropouts.
         An independent PID per axis turns the filtered pixel error into incremental angle
-        commands. The loop carries several guards I added during tuning: a slew-rate limit so no
-        command can slam a servo into its stop, derivative-kick protection on target acquisition,
+        commands. The loop carries several guards I added during tuning: a slew-rate limit that
+        caps how far the command can move in a single frame, so a spike becomes slow, correctable
+        motion instead of a full-speed swing; derivative-kick protection on target acquisition;
         and a deadband sized just above one command step so the platform locks cleanly instead of
         dithering.
       </p>
@@ -220,9 +221,11 @@
     </li>
     <li>
       <strong>Hidden resolution bug.</strong> The camera was delivering 1280 px frames, not the
-      640 px the gains assumed, which doubled every error and pushed the command permanently past
-      the slew limit into a bang-bang oscillation that no gain change could fix. Forcing 640x480
-      cut slew saturation from 68% of frames to 1%, and steady-state error from 333 to 58 px RMS.
+      640 px the gains assumed, which doubled every error and held the command permanently at the
+      slew-rate limit, so every frame moved by the maximum allowed step. That is bang-bang
+      behavior, and bang-bang is gain-independent, which is why no gain change could fix it.
+      Forcing 640x480 cut slew saturation from 68% of frames to 1%, and steady-state error from
+      333 to 58 px RMS.
     </li>
   </ol>
   <p>
